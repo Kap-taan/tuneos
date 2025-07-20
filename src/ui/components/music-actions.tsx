@@ -1,4 +1,4 @@
-import { CircleArrowLeft, CircleArrowRight, Pause, Play } from "lucide-react";
+import { CircleArrowLeft, CircleArrowRight, CirclePause, CirclePlay } from "lucide-react";
 import { useSongStore } from "../store/music-store";
 
 const MusicActions = () => {
@@ -13,8 +13,8 @@ const MusicActions = () => {
     return (
         <ul className="menu menu-vertical lg:menu-horizontal w-full py-3 justify-around bg-base-200 rounded-2xl">
             <p className="flex justify-center cursor-pointer"><CircleArrowLeft /></p>
-            {currentState === "pause" && <p onClick={() => playPauseHandler("play")} className="flex justify-center cursor-pointer"><Play /></p>}
-            {currentState === "play" && <p onClick={() => playPauseHandler("pause")} className="flex justify-center cursor-pointer"><Pause /></p>}
+            {currentState === "pause" && <p onClick={() => playPauseHandler("play")} className="flex justify-center cursor-pointer"><CirclePlay /></p>}
+            {currentState === "play" && <p onClick={() => playPauseHandler("pause")} className="flex justify-center cursor-pointer"><CirclePause /></p>}
             <p className="flex justify-center cursor-pointer"><CircleArrowRight /></p>
         </ul>
     );

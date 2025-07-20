@@ -4,7 +4,7 @@ import RightArrow from "../icons/RightArrow";
 const Banner = () => {
     return (
         <div className="bg-gradient-to-b from-rose-600 via-pink-600 via-25% to-transparent to-100%">
-            <div className="px-10 pt-5">
+            <div className="px-10 py-5">
                 <div className="flex gap-2">
                     <div className="rounded-4xl p-1 cursor-pointer bg-[#121212c9]"><LeftArrow /></div>
                     <div className="rounded-4xl p-1 cursor-pointer bg-[#121212c9]"><RightArrow /></div>

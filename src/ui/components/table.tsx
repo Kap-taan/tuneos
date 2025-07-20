@@ -89,15 +89,7 @@ const Table = () => {
 
     const songChanger = useSongStore(store => store.setSong);
 
-    const changeSongHandler = (song: {
-    image: string;
-    songName: string;
-    singers: string[];
-    writer: string[];
-    musicProducer: string[];
-    timing: string;
-    link: string;
-}) => {
+    const changeSongHandler = (song: { image: string; songName: string; singers: string[]; writer: string[]; musicProducer: string[]; timing: string; link: string; }) => {
         const songType = {
             songName: song.songName,
             songLink: song.link,
@@ -105,12 +97,16 @@ const Table = () => {
             singers: song.singers,
             music: song.musicProducer,
             lyrics: song.writer,
-            currentState: "play"
+            currentState: "play",
+            currentTiming: 0,
+            totalTiming: 0
         }
 
         songChanger(songType);
 
     }
+
+    const songLink = useSongStore(store => store.song?.songLink);
 
     return (
         <div className="overflow-x-auto">
@@ -126,8 +122,9 @@ const Table = () => {
                 </thead>
                 <tbody>
                     {songs && songs.map((song, idx) => (
-                        <tr className="cursor-pointer" onClick={() => changeSongHandler(song)}>
-                            <th>{idx}</th>
+                        <tr key={idx} className="cursor-pointer" onClick={() => changeSongHandler(song)}>
+                            {song.link !== songLink && <th>{idx}</th>}
+                            {song.link === songLink && <th><div aria-label="success" className="status status-success animate-ping"></div></th>}
                             <td>
                                 <div className="flex items-center gap-3">
                                     <div className="avatar">
