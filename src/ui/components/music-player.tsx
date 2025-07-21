@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useSongStore } from "../store/music-store";
 import MusicActions from "./music-actions";
 import ProgressBar from "./progress-bar";
@@ -6,17 +6,20 @@ import ProgressBar from "./progress-bar";
 const MusicPlayer = () => {
 
     const audioRef = useRef<HTMLAudioElement | null>(null);
-    const [progressPercentage, setProgressPercentage] = useState<string>("0");
 
     // Store data
     const song = useSongStore((store) => store.song);
     const updateTiming = useSongStore((store) => store.updateTiming);
+    const setAudioRef = useSongStore(store => store.setAudioRef);
 
     const updateProgress = useCallback(() => {
         const tempProgress = Math.ceil(((audioRef?.current?.currentTime ?? 0) / (audioRef?.current?.duration ?? 1)) * 100).toString();
-        setProgressPercentage(tempProgress);
         updateTiming(Number(tempProgress));
     }, [updateTiming]);
+
+    useEffect(() => {
+        setAudioRef(audioRef);
+    }, [audioRef, setAudioRef])
 
     useEffect(() => {
         const interval = setInterval(() => updateProgress(), 500);
@@ -46,7 +49,7 @@ const MusicPlayer = () => {
                     <h2 className="card-title text-white text-xl font-bold">{song?.songName}</h2>
                     <p className="text-sm text-gray-200">{song?.singers.toString()}</p>
                 </div>
-                <ProgressBar progressValue={progressPercentage} />
+                <ProgressBar progressValue={song.currentTiming.toString()} />
                 <div className="card-actions mt-4 flex bg-transparent items-center justify-center">
                     <MusicActions />
                 </div>
